@@ -7,8 +7,8 @@
 
   <browser:page
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
-      name="edit_css"
-      class=".edit_css.EditCSS"
+      name="rip"
+      class=".rip.RipView"
       permission="cmf.ManagePortal"
   />
 
