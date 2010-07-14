@@ -16,9 +16,9 @@ jq(function () { jq("h1").hide("slow"); } );
 */
 """
 
-class EditCSS(BrowserView):
+class RipView(BrowserView):
 
-    template = ViewPageTemplateFile('edit_css.pt')
+    template = ViewPageTemplateFile('rip.pt')
     default_css = default_css
     default_js = default_js
     custom_css = 'ploneCustom.css'
