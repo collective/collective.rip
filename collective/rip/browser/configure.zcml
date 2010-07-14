@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="Products.project">
+
+  <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      name="edit_css"
+      class=".edit_css.EditCSS"
+      permission="cmf.ManagePortal"
+  />
+
+</configure>

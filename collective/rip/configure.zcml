@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+
+  <include package=".browser" />
+
+  <!-- Register the installation GenericSetup extension profile -->
+  <genericsetup:registerProfile
+      name="default"
+      title="Edit CSS/JS"
+      directory="profiles/default"
+      description="Edit CSS/JS from Plone Control Panel."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>
+

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel" meta_type="Plone Control Panel Tool">
+ <configlet title="Edit CSS/JS" action_id="EditCSS"
+    appId="EditCSS" category="Products" condition_expr=""
+    url_expr="string:${portal_url}/edit_css" visible="True">
+  <permission>Manage portal</permission>
+ </configlet>
+</object>
+

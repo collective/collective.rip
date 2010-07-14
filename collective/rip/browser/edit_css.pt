@@ -1,0 +1,147 @@
+<html>
+
+<body metal:use-macro="here/prefs_main_template/macros/master">
+
+<metal:block fill-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border',1)" />
+
+<div metal:fill-slot="prefs_configlet_main">
+
+<tal:comment replace="nothing">
+    <div class="portalMessage" tal:content="structure python: view.context.request.form" />
+</tal:comment>
+
+<h1>Edit CSS/JS</h1>
+
+    <a href=""
+       class="link-parent"
+       tal:attributes="href string:$portal_url/plone_control_panel"
+       i18n:translate="label_up_to_plone_setup">
+        Up to Site Setup
+    </a>
+
+    <tal:comment replace="nothing">
+    <!-- Thanks! http://www.sixfeetup.com/blog/2009/7/31/utilize-available-javascript-in-plone-without-knowing-javascript
+    -->
+    </tal:comment>
+
+    <dl class="enableFormTabbing">
+        <dt id="fieldsetlegend-edit-css">Edit CSS</dt>
+        <dt id="fieldsetlegend-edit-js">Edit JS</dt>
+        <dt id="fieldsetlegend-debug-css">Debug CSS</dt>
+        <dt id="fieldsetlegend-debug-js">Debug JS</dt>
+        <dd id="fieldset-edit-css">
+            <form method="post" action="edit_css">
+
+                <p>Here you can add custom CSS to override Plone's default CSS.</p>
+
+                <div class="field">
+                <fieldset>
+                    <legend>Edit CSS</legend>
+
+                    <textarea rows="25" name="edit_css" tal:content="view/getPloneCustomCSS"></textarea>
+
+                    <div class="formControls" style="padding-top: 1em">
+                        <input class="context"
+                             type="submit"
+                             name="submit"
+                             value="Save" />
+                    </div>
+                </fieldset>
+
+                </div>
+
+            </form>
+        </dd>
+
+        <dd id="fieldset-edit-js">
+            <form method="post" action="edit_css">
+
+                <p>Here you can add custom JS to override Plone's default JS.</p>
+
+                <div class="field">
+                <fieldset>
+                    <legend>Edit JS</legend>
+
+                    <textarea rows="25" name="edit_js" tal:content="view/getPloneCustomJS"></textarea>
+
+                    <div class="formControls" style="padding-top: 1em">
+                        <input class="context"
+                             type="submit"
+                             name="submit"
+                             value="Save" />
+                    </div>
+                </fieldset>
+
+                </div>
+
+            </form>
+        </dd>
+        <dd id="fieldset-debug-css">
+
+            <form method="post" action="edit_css">
+
+                <div class="field">
+
+                    <p>In debug-/development mode, stylesheets are not merged to composites, and caching and compression of css is disabled. The registry also sends http-headers to prevent browsers from caching the stylesheets. Recommended during css-related development. Remember to turn it off again, as the debugmode affects performance.</p>
+
+                <fieldset>
+
+                    <legend>Toggle CSS Debug</legend>
+
+                    <input type="checkbox" name="toggle_css_debug" id="toggle_css_debug"
+                        tal:attributes="checked view/getDebugModeCSS">
+
+                    <label for="toggle_css_debug">Debug/development mode</label>
+
+                    <div class="formControls" style="padding-top: 1em">
+                        <input class="context"
+                             type="submit"
+                             name="submit"
+                             value="Save" />
+                    </div>
+                </fieldset>
+
+                </div>
+
+            </form>
+
+        </dd>
+        <dd id="fieldset-debug-js">
+
+            <form method="post" action="edit_css">
+
+                <div class="field">
+
+                    <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
+Recommended during javascript-related development. Remember to turn it off again, as the debugmode affects performance.</p>
+
+                <fieldset>
+
+                    <legend>Toggle JS Debug</legend>
+
+                    <input type="checkbox" name="toggle_js_debug" id="toggle_js_debug"
+                        tal:attributes="checked view/getDebugModeJS">
+
+                    <label for="toggle_js_debug">Debug/development mode</label>
+
+                    <div class="formControls" style="padding-top: 1em">
+                        <input class="context"
+                             type="submit"
+                             name="submit"
+                             value="Save" />
+                    </div>
+                </fieldset>
+
+                </div>
+
+            </form>
+
+        </dd>
+    </dl>
+
+</div>
+
+</body>
+
+</html>
