@@ -31,7 +31,7 @@
         <dt id="fieldsetlegend-debug-css">Debug CSS</dt>
         <dt id="fieldsetlegend-debug-js">Debug JS</dt>
         <dd id="fieldset-edit-css">
-            <form method="post" action="edit_css">
+            <form method="post" action="rip">
 
                 <p>Here you can add custom CSS to override Plone's default CSS.</p>
 
@@ -39,7 +39,7 @@
                 <fieldset>
                     <legend>Edit CSS</legend>
 
-                    <textarea rows="25" name="edit_css" tal:content="view/getPloneCustomCSS"></textarea>
+                    <textarea rows="25" name="rip" tal:content="view/getPloneCustomCSS"></textarea>
 
                     <div class="formControls" style="padding-top: 1em">
                         <input class="context"
@@ -55,7 +55,7 @@
         </dd>
 
         <dd id="fieldset-edit-js">
-            <form method="post" action="edit_css">
+            <form method="post" action="rip">
 
                 <p>Here you can add custom JS to override Plone's default JS.</p>
 
@@ -79,7 +79,7 @@
         </dd>
         <dd id="fieldset-debug-css">
 
-            <form method="post" action="edit_css">
+            <form method="post" action="rip">
 
                 <div class="field">
 
@@ -109,7 +109,7 @@
         </dd>
         <dd id="fieldset-debug-js">
 
-            <form method="post" action="edit_css">
+            <form method="post" action="rip">
 
                 <div class="field">
 
