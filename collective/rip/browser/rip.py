@@ -25,7 +25,7 @@ class RipView(BrowserView):
     custom_js = 'ploneCustom.js'
 
     def __call__(self, *args, **kw):
-        request = self.context.request
+        request = self.context.REQUEST
         form = request.form
 
         # XXX Replace this with Zope 2 form processing
