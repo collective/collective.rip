@@ -26,6 +26,9 @@
         <dt id="fieldsetlegend-edit-js">Edit JS</dt>
 
         <dd id="fieldset-edit-css">
+
+            <h1>Edit &rarr; CSS</h1>
+
             <form method="post" action="rip">
 
                 <div class="field">
@@ -33,7 +36,7 @@
 
                     <fieldset>
 
-                        <legend>Toggle CSS Debug</legend>
+                        <legend>Debug</legend>
 
                         <p>In debug-/development mode, stylesheets are not merged to composites, and caching and compression of css is disabled. The registry also sends http-headers to prevent browsers from caching the stylesheets. Recommended during css-related development. Remember to turn it off again, as the debugmode affects performance.</p>
 
@@ -49,15 +52,17 @@
                 <div class="field">
 
                     <fieldset>
-                        <legend>Edit CSS</legend>
+                        <legend>Edit</legend>
+
+                        <p>Here you can add custom CSS to override Plone's default CSS. This form provides an alternate way to edit the ZMI form: portal_skins/custom/ploneCustom.css.</p>
 
                         <textarea rows="25" name="rip" tal:content="view/getPloneCustomCSS"></textarea>
 
-                        <div class="formControls" style="padding-top: 1em">
+                        <div class="formControls" style="padding-top: 1em; ">
                             <input class="context"
                                  type="submit"
                                  name="submit"
-                                 value="Save" />
+                                 value="Save changes" />
                         </div>
                     </fieldset>
 
@@ -67,13 +72,16 @@
         </dd>
 
         <dd id="fieldset-edit-js">
+
+            <h1>Edit &rarr; JS</h1>
+
             <form method="post" action="rip">
 
                 <div class="field">
 
                     <fieldset>
 
-                        <legend>Toggle JS Debug</legend>
+                        <legend>Debug</legend>
 
                         <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
 Recommended during javascript-related development. Remember to turn it off again, as the debug mode affects performance.</p>
@@ -90,15 +98,17 @@ Recommended during javascript-related development. Remember to turn it off again
                 <div class="field">
 
                     <fieldset>
-                        <legend>Edit JS</legend>
+                        <legend>Edit</legend>
+
+                        <p>Here you can add custom JS to override Plone's default JS. This form provides an alternate way to edit the ZMI form: portal_skins/custom/ploneCustom.css.</p>
 
                         <textarea rows="25" name="edit_js" tal:content="view/getPloneCustomJS"></textarea>
 
-                        <div class="formControls" style="padding-top: 1em">
+                        <div class="formControls" style="padding-top: 1em; ">
                             <input class="context"
                                  type="submit"
                                  name="submit"
-                                 value="Save" />
+                                 value="Save changes" />
                         </div>
 
                     </fieldset>
