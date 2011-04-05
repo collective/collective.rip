@@ -16,7 +16,7 @@ jq(function () { jq("h1").hide("slow"); } );
 */
 """
 
-class RipView(BrowserView):
+class ResourcesInPlone(BrowserView):
 
     template = ViewPageTemplateFile('rip.pt')
     default_css = default_css

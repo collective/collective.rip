@@ -29,7 +29,6 @@
         <dt id="fieldsetlegend-edit-css">Edit CSS</dt>
         <dt id="fieldsetlegend-edit-js">Edit JS</dt>
         <dt id="fieldsetlegend-debug-css">Debug CSS</dt>
-        <dt id="fieldsetlegend-debug-js">Debug JS</dt>
         <dd id="fieldset-edit-css">
             <form method="post" action="rip">
 
@@ -57,7 +56,23 @@
         <dd id="fieldset-edit-js">
             <form method="post" action="rip">
 
-                <p>Here you can add custom JS to override Plone's default JS.</p>
+                <div class="field">
+
+                    <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
+Recommended during javascript-related development. Remember to turn it off again, as the debugmode affects performance.</p>
+
+                <fieldset>
+
+                    <legend>Toggle JS Debug</legend>
+
+                    <input type="checkbox" name="toggle_js_debug" id="toggle_js_debug"
+                        tal:attributes="checked view/getDebugModeJS">
+
+                    <label for="toggle_js_debug">Debug/development mode</label>
+
+                </fieldset>
+
+                </div>
 
                 <div class="field">
                 <fieldset>
@@ -93,37 +108,6 @@
                         tal:attributes="checked view/getDebugModeCSS">
 
                     <label for="toggle_css_debug">Debug/development mode</label>
-
-                    <div class="formControls" style="padding-top: 1em">
-                        <input class="context"
-                             type="submit"
-                             name="submit"
-                             value="Save" />
-                    </div>
-                </fieldset>
-
-                </div>
-
-            </form>
-
-        </dd>
-        <dd id="fieldset-debug-js">
-
-            <form method="post" action="rip">
-
-                <div class="field">
-
-                    <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
-Recommended during javascript-related development. Remember to turn it off again, as the debugmode affects performance.</p>
-
-                <fieldset>
-
-                    <legend>Toggle JS Debug</legend>
-
-                    <input type="checkbox" name="toggle_js_debug" id="toggle_js_debug"
-                        tal:attributes="checked view/getDebugModeJS">
-
-                    <label for="toggle_js_debug">Debug/development mode</label>
 
                     <div class="formControls" style="padding-top: 1em">
                         <input class="context"

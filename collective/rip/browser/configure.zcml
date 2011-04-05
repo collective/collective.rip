@@ -8,7 +8,7 @@
   <browser:page
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       name="rip"
-      class=".rip.RipView"
+      class=".rip.ResourcesInPlone"
       permission="cmf.ManagePortal"
   />
 
