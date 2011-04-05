@@ -30,11 +30,12 @@
 
                 <div class="field">
 
-                    <p>In debug-/development mode, stylesheets are not merged to composites, and caching and compression of css is disabled. The registry also sends http-headers to prevent browsers from caching the stylesheets. Recommended during css-related development. Remember to turn it off again, as the debugmode affects performance.</p>
 
                     <fieldset>
 
                         <legend>Toggle CSS Debug</legend>
+
+                        <p>In debug-/development mode, stylesheets are not merged to composites, and caching and compression of css is disabled. The registry also sends http-headers to prevent browsers from caching the stylesheets. Recommended during css-related development. Remember to turn it off again, as the debugmode affects performance.</p>
 
                         <input type="checkbox" name="toggle_css_debug" id="toggle_css_debug"
                             tal:attributes="checked view/getDebugModeCSS">
@@ -70,12 +71,12 @@
 
                 <div class="field">
 
-                    <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
-Recommended during javascript-related development. Remember to turn it off again, as the debugmode affects performance.</p>
-
                     <fieldset>
 
                         <legend>Toggle JS Debug</legend>
+
+                        <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
+Recommended during javascript-related development. Remember to turn it off again, as the debug mode affects performance.</p>
 
                         <input type="checkbox" name="toggle_js_debug" id="toggle_js_debug"
                             tal:attributes="checked view/getDebugModeJS">
