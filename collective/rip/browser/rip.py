@@ -26,8 +26,8 @@ class ResourcesInPlone(BrowserView):
 
         self.default_css = default_css
         self.default_js = default_js
-        self.custom_css = 'ploneCustom.css'
-        self.custom_js = 'ploneCustom.js'
+        self.custom_css = 'rip.css'
+        self.custom_js = 'rip.js'
 
         self.plonesite = getSite()
         self.portal_skins = self.plonesite.portal_skins
@@ -76,18 +76,29 @@ class ResourcesInPlone(BrowserView):
         """
         if tool.getId() == 'portal_css':
             custom_id = self.custom_css
-            obj = self.portal_skins.custom[custom_id]
+            default_text = self.default_css
+            try:
+                obj = self.portal_skins.custom[custom_id]
+            except:
+                self.create_custom(custom_id, default_text)
+                obj = self.portal_skins.custom[custom_id]
             register = self.portal_css.registerStylesheet
             update = self.portal_css.updateStylesheet
             default_text = self.default_css
         elif tool.getId() == 'portal_javascripts':
             custom_id = self.custom_js
-            obj = self.portal_skins.custom[custom_id]
+            default_text = self.default_js
+            try:
+                obj = self.portal_skins.custom[custom_id]
+            except:
+                self.create_custom(custom_id, default_text)
+                obj = self.portal_skins.custom[custom_id]
             register = self.portal_js.registerScript
             update = self.portal_js.updateScript
             default_text = self.default_js
         else:
             raise Exception("Unable to traverse to custom object in skins!")
+
         return custom_id, obj, register, update, default_text
 
     def setPloneCustom(self, tool, text):
@@ -114,6 +125,12 @@ class ResourcesInPlone(BrowserView):
             update(id=custom_id, enabled=True)
         tool.cookResources()
 
+    def create_custom(self, custom_id, default_text):
+        text = default_text
+        content_type = 'text/html'
+        obj = ZopePageTemplate(custom_id, text, content_type)
+        self.portal_skins.custom._setObject(custom_id, obj)
+
     def getPloneCustom(self, tool):
         custom_id, obj, register, update, default_text = self.getCustomObjectAndMethods(tool)
         if custom_id in self.portal_skins.custom.objectIds():
@@ -122,10 +139,6 @@ class ResourcesInPlone(BrowserView):
             except:
                 raise Exception("Unable to get source of: %s" % repr(obj))
         else:
-            text = default_text
-            content_type = 'text/html'
-            obj = ZopePageTemplate(custom_id, text, content_type)
-            self.portal_skins.custom._setObject(self.custom_css, obj)
+            self.create_custom(custom_id, default_text)
             document_src = self.portal_skins.custom[custom_id].document_src()
-
         return document_src
