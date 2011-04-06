@@ -14,6 +14,7 @@ default_js = """
 /* jq(function () { jq("h1").hide("slow"); } ); */
 """
 
+
 class ResourcesInPlone(BrowserView):
 
     template = ViewPageTemplateFile('rip.pt')
@@ -46,7 +47,7 @@ class ResourcesInPlone(BrowserView):
             self.portal_css.setDebugMode(False)
 
         # Enable/disable JS debug
-        if 'js_debug' in form and form['js_debug']: 
+        if 'js_debug' in form and form['js_debug']:
             self.portal_js.setDebugMode(True)
         if not 'css_debug' in form and 'submitted_js' in form:
             self.portal_js.setDebugMode(False)
@@ -65,10 +66,9 @@ class ResourcesInPlone(BrowserView):
         """
         Called from rip.pt
         """
-        tool = getToolByName(self.plonesite, value) 
+        tool = getToolByName(self.plonesite, value)
         status = tool.getDebugMode()
         return status
-
 
     def getCustomObjectAndMethods(self, tool):
         """
@@ -94,7 +94,8 @@ class ResourcesInPlone(BrowserView):
         """
         Look for a DTML or ZPT obj to update
         """
-        custom_id, obj, register, update, default_text = self.getCustomObjectAndMethods(tool)
+        custom_id, obj, register, update, default_text = (
+            self.getCustomObjectAndMethods(tool))
         if hasattr(obj, 'manage_edit'):
             # DTMLMethod
             obj.manage_edit(text, 'text/html')
