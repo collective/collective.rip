@@ -137,7 +137,8 @@ class ResourcesInPlone(BrowserView):
         self.portal_skins.custom._setObject(custom_id, obj)
 
     def getPloneCustom(self, tool):
-        custom_id, obj, register, update, default_text = self.getCustomObjectAndMethods(tool)
+        custom_id, obj, register, update, default_text = (
+            self.getCustomObjectAndMethods(tool))
         if custom_id in self.portal_skins.custom.objectIds():
             try:
                 document_src = self.portal_skins.custom[custom_id].document_src()
