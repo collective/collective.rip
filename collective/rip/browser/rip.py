@@ -139,4 +139,3 @@ class ResourcesInPlone(BrowserView):
             self.create_custom(custom_id, default_text)
             document_src = self.portal_skins.custom[custom_id].document_src()
         return document_src
-

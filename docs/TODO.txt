@@ -1,0 +1,6 @@
+Todo
+====
+
+- Make it work without portal_skins
+
+
