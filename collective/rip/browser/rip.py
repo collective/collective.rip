@@ -1,173 +1,130 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
-from zope.app.component.hooks import getSite
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
+from zope.app.component.hooks import getSite
 
 default_css = """
-/* DELETE THIS LINE AND PUT YOUR CUSTOM STUFF HERE. E.g.
-body{background:black;}
-*/
+/* PUT YOUR CUSTOM STUFF HERE. E.g. */
+/* body{background:black;} */
 """
 
 default_js = """
-/* DELETE THIS LINE AND PUT YOUR CUSTOM STUFF HERE. E.g.
-jq(function () { jq("h1").hide("slow"); } );
-*/
+/* PUT YOUR CUSTOM STUFF HERE. E.g. */
+/* jq(function () { jq("h1").hide("slow"); } ); */
 """
 
 class ResourcesInPlone(BrowserView):
 
     template = ViewPageTemplateFile('rip.pt')
-    default_css = default_css
-    default_js = default_js
-    custom_css = 'ploneCustom.css'
-    custom_js = 'ploneCustom.js'
 
-    def __call__(self, *args, **kw):
-        request = self.context.REQUEST
-        form = request.form
+    def __init__(self, context, request):
 
-        # XXX Replace this with Zope 2 form processing
-        # http://docs.zope.org/zope2/zope2book/ScriptingZope.html#passing-parameters-to-scripts
+        self.context = context
+        self.request = request
 
-        contains = form.__contains__
+        self.default_css = default_css
+        self.default_js = default_js
+        self.custom_css = 'ploneCustom.css'
+        self.custom_js = 'ploneCustom.js'
 
-        if contains('edit_css') and contains('submit'):
-            if form['submit'] == 'Save':
-                self.setPloneCustomCSS(form['edit_css'])
+        self.plonesite = getSite()
+        self.portal_skins = self.plonesite.portal_skins
+        self.portal_css = self.plonesite.portal_css
+        self.portal_js = self.plonesite.portal_javascripts
 
-        if contains('edit_js') and contains('submit'):
-            if form['submit'] == 'Save':
-                self.setPloneCustomJS(form['edit_js'])
+    def __call__(self):
+        """
+        Manage "static" resources in Plone
+        """
+        form = self.request.form
 
-        if contains('toggle_css_debug') and contains('submit'):
-            if form['toggle_css_debug'] == 'on' and form['submit'] == 'Save':
-                self.setDebugModeCSS(True)
+        # Enable/disable CSS debug
+        if 'css_debug' in form and form['css_debug']:
+            self.portal_css.setDebugMode(True)
+        if not 'css_debug' in form and 'submitted_css' in form:
+            self.portal_css.setDebugMode(False)
 
-        if not contains('toggle_css_debug') and contains('submit'):
-            if form['submit'] == 'Save':
-                self.setDebugModeCSS(False)
+        # Enable/disable JS debug
+        if 'js_debug' in form and form['js_debug']: 
+            self.portal_js.setDebugMode(True)
+        if not 'css_debug' in form and 'submitted_js' in form:
+            self.portal_js.setDebugMode(False)
 
-        if contains('toggle_js_debug') and contains('submit'):
-            if form['toggle_js_debug'] == 'on' and form['submit'] == 'Save':
-                self.setDebugModeJS(True)
-
-        if not contains('toggle_js_debug') and contains('submit'):
-            if form['submit'] == 'Save':
-                self.setDebugModeJS(False)
+        # Edit CSS/JS
+        if 'edit_css' in form and 'submitted_css' in form:
+            text = form['edit_css']
+            self.setPloneCustom(self.portal_css, text)
+        if 'edit_js' in form and 'submitted_js' in form:
+            text = form['edit_js']
+            self.setPloneCustom(self.portal_js, text)
 
         return self.template()
 
-    def getPloneCustomCSS(self):
-        site = getSite()
-        skins = site.portal_skins
-        if self.custom_css in skins.custom.objectIds():
-            try:
-                return skins.custom[self.custom_css].document_src()
-            except:
-                raise Exception("It's not possible to manage the object %s. "
-                    "Use '%s' instead." % (repr(skins.custom[self.custom_css]),
-                    "ZopePageTemplate"))
+    def getDebugMode(self, value):
+        """
+        Called from rip.pt
+        """
+        tool = getToolByName(self.plonesite, value) 
+        status = tool.getDebugMode()
+        return status
+
+
+    def getCustomObjectAndMethods(self, tool):
+        """
+        Based on the tool, return custom object and methods to update resources
+        """
+        if tool.getId() == 'portal_css':
+            custom_id = self.custom_css
+            obj = self.portal_skins.custom[custom_id]
+            register = self.portal_css.registerStylesheet
+            update = self.portal_css.updateStylesheet
+            default_text = self.default_css
+        elif tool.getId() == 'portal_javascripts':
+            custom_id = self.custom_js
+            obj = self.portal_skins.custom[custom_id]
+            register = self.portal_js.registerScript
+            update = self.portal_js.updateScript
+            default_text = self.default_js
         else:
-            id = self.custom_css
-            text = self.default_css
-            content_type = 'text/html'
-            obj = ZopePageTemplate(id, text, content_type)
-            skins.custom._setObject(id, obj)
-            return skins.custom[self.custom_css].document_src()
+            raise Exception("Unable to traverse to custom object in skins!")
+        return custom_id, obj, register, update, default_text
 
-    def getPloneCustomJS(self):
-        site = getSite()
-        skins = site.portal_skins
-        if self.custom_js in skins.custom.objectIds():
-            try:
-                return skins.custom[self.custom_js].document_src()
-            except:
-                raise Exception("It's not possible to manage the object %s. "
-                    "Use '%s' instead." % (repr(skins.custom[self.custom_js]),
-                    "ZopePageTemplate"))
+    def setPloneCustom(self, tool, text):
+        """
+        Look for a DTML or ZPT obj to update
+        """
+        custom_id, obj, register, update, default_text = self.getCustomObjectAndMethods(tool)
+        if hasattr(obj, 'manage_edit'):
+            # DTMLMethod
+            obj.manage_edit(text, 'text/html')
+        elif hasattr(obj, 'pt_edit'):
+            # ZopePageTemplate
+            obj.pt_edit(text, 'text/html')
         else:
-            id = self.custom_js
-            text = self.default_js
+            raise Exception("Unable to update object: %s." % repr(obj))
+        self.updatePloneCustom(tool, custom_id, obj, register, update)
+
+    def updatePloneCustom(self, tool, custom_id, obj, register, update):
+        resource_ids = tool.getResourceIds()
+        if custom_id not in resource_ids:
+            register(id=custom_id, enabled=True)
+        else:
+            update(id=custom_id, enabled=True)
+        tool.cookResources()
+
+    def getPloneCustom(self, tool):
+        custom_id, obj, register, update, default_text = self.getCustomObjectAndMethods(tool)
+        if custom_id in self.portal_skins.custom.objectIds():
+            try:
+                document_src = self.portal_skins.custom[custom_id].document_src()
+            except:
+                raise Exception("Unable to get source of: %s" % repr(obj))
+        else:
+            text = default_text
             content_type = 'text/html'
-            obj = ZopePageTemplate(id, text, content_type)
-            skins.custom._setObject(id, obj)
-            return skins.custom[self.custom_js].document_src()
+            obj = ZopePageTemplate(custom_id, text, content_type)
+            self.portal_skins.custom._setObject(self.custom_css, obj)
+            document_src = self.portal_skins.custom[custom_id].document_src()
 
-    def setPloneCustomCSS(self, text):
-        site = getSite()
-        skins = site.portal_skins
-        obj = skins.custom[self.custom_css]
-        try:
-            if hasattr(obj, 'manage_edit'):
-                # DTMLMethod
-                obj.manage_edit(text, 'text/html')
-            else:
-                # ZopePageTemplate
-                obj.pt_edit(text, 'text/html')
-        except:
-            raise Exception("It's not possible to update object %s. "
-                "Use '%s' instead." % (repr(obj), "ZopePageTemplate"))
-        self.updatePloneCustomCSS()
-
-    def setPloneCustomJS(self, text):
-        site = getSite()
-        skins = site.portal_skins
-        obj = skins.custom[self.custom_js]
-        try:
-            if hasattr(obj, 'manage_edit'):
-                # DTMLMethod
-                obj.manage_edit(text, 'text/html')
-            else:
-                # ZopePageTemplate
-                obj.pt_edit(text, 'text/html')
-        except:
-            raise Exception("It's not possible to update object %s. "
-                "Use '%s' instead." % (repr(obj), "ZopePageTemplate"))
-        self.updatePloneCustomJS()
-
-    def updatePloneCustomCSS(self):
-        site = getSite()
-        cssreg = getToolByName(site, 'portal_css', None)
-        if cssreg is not None:
-            stylesheet_ids = cssreg.getResourceIds()
-            if self.custom_css not in stylesheet_ids:
-#y               cssreg.registerStylesheet(id=sheetId, enabled=True)
-                cssreg.registerStylesheet(id=self.custom_css, enabled=True)
-                cssreg.cookResources()
-            else:
-                cssreg.updateStylesheet(self.custom_css, enabled=True)
-                cssreg.cookResources()
-
-    def updatePloneCustomJS(self):
-        site = getSite()
-        jsreg = getToolByName(site, 'portal_javascripts', None)
-        if jsreg is not None:
-            script_ids = jsreg.getResourceIds()
-            if self.custom_js not in script_ids:
-                jsreg.registerScript(id=self.custom_js, enabled=True)
-                jsreg.cookResources()
-            else:
-                jsreg.updateScript(self.custom_js, enabled=True)
-                jsreg.cookResources()
-
-    def getDebugModeCSS(self):
-        site = getSite() 
-        css_tool = getToolByName(site, 'portal_css') 
-        return css_tool.getDebugMode()
-
-    def getDebugModeJS(self):
-        site = getSite()
-        js_tool = getToolByName(site, 'portal_javascripts')
-        return js_tool.getDebugMode()
-
-    def setDebugModeCSS(self, value):
-        site = getSite() 
-        css_tool = getToolByName(site, 'portal_css') 
-        css_tool.setDebugMode(value)
-
-    def setDebugModeJS(self, value):
-        site = getSite()
-        js_tool = getToolByName(site, 'portal_javascripts')
-        js_tool.setDebugMode(value)
+        return document_src

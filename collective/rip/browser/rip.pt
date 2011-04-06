@@ -31,6 +31,8 @@
 
             <form method="post" action="rip">
 
+                <input type="hidden" name="submitted_css" />
+
                 <div class="field">
 
 
@@ -40,10 +42,10 @@
 
                         <p>In debug-/development mode, stylesheets are not merged to composites, and caching and compression of css is disabled. The registry also sends http-headers to prevent browsers from caching the stylesheets. Recommended during css-related development. Remember to turn it off again, as the debugmode affects performance.</p>
 
-                        <input type="checkbox" name="toggle_css_debug" id="toggle_css_debug"
-                            tal:attributes="checked view/getDebugModeCSS">
+                        <input type="checkbox" name="css_debug:boolean" id="css_debug"
+                            tal:attributes="checked python: view.getDebugMode('portal_css')">
 
-                        <label for="toggle_css_debug">Debug/development mode</label>
+                        <label for="css_debug">Debug/development mode</label>
 
                     </fieldset>
 
@@ -54,9 +56,9 @@
                     <fieldset>
                         <legend>Edit</legend>
 
-                        <p>Here you can add custom CSS to override Plone's default CSS. This form provides an alternate way to edit the ZMI form: portal_skins/custom/ploneCustom.css.</p>
+                        <p>Here you can add custom CSS to override Plone's default CSS. This form provides an alternate way to edit the ZMI object: portal_skins/custom/ploneCustom.css.</p>
 
-                        <textarea rows="25" name="rip" tal:content="view/getPloneCustomCSS"></textarea>
+                        <textarea rows="25" name="edit_css" tal:content="python: view.getPloneCustom(here.portal_css)"></textarea>
 
                         <div class="formControls" style="padding-top: 1em; ">
                             <input class="context"
@@ -77,6 +79,8 @@
 
             <form method="post" action="rip">
 
+                <input type="hidden" name="submitted_js" />
+
                 <div class="field">
 
                     <fieldset>
@@ -86,10 +90,10 @@
                         <p>In debug-/development mode, scripts are not merged to composites, and caching and compression of scripts is disabled. The registry also sends http-headers to prevent browsers from caching the scripts.
 Recommended during javascript-related development. Remember to turn it off again, as the debug mode affects performance.</p>
 
-                        <input type="checkbox" name="toggle_js_debug" id="toggle_js_debug"
-                            tal:attributes="checked view/getDebugModeJS">
+                        <input type="checkbox" name="js_debug:boolean" id="js_debug"
+                            tal:attributes="checked python: view.getDebugMode('portal_javascripts')">
 
-                        <label for="toggle_js_debug">Debug/development mode</label>
+                        <label for="js_debug">Debug/development mode</label>
 
                     </fieldset>
 
@@ -100,9 +104,9 @@ Recommended during javascript-related development. Remember to turn it off again
                     <fieldset>
                         <legend>Edit</legend>
 
-                        <p>Here you can add custom JS to override Plone's default JS. This form provides an alternate way to edit the ZMI form: portal_skins/custom/ploneCustom.css.</p>
+                        <p>Here you can add custom JS to override Plone's default JS. This form provides an alternate way to edit the ZMI object: portal_skins/custom/ploneCustom.css.</p>
 
-                        <textarea rows="25" name="edit_js" tal:content="view/getPloneCustomJS"></textarea>
+                        <textarea rows="25" name="edit_js" tal:content="python: view.getPloneCustom(here.portal_javascripts)"></textarea>
 
                         <div class="formControls" style="padding-top: 1em; ">
                             <input class="context"
