@@ -49,7 +49,7 @@
                         <fieldset>
                             <legend>Edit</legend>
 
-                            <p>Here you can add custom CSS to override Plone's default CSS. This form provides an alternate way to edit the ZMI object: portal_skins/custom/ploneCustom.css.</p>
+                            <p>Here you can add custom CSS to override Plone's default CSS.</p>
 
                             <textarea rows="25" name="edit_css" tal:content="python: view.getPloneCustom(here.portal_css)"></textarea>
 
@@ -97,7 +97,7 @@
                         <fieldset>
                             <legend>Edit</legend>
 
-                            <p>Here you can add custom JS to override Plone's default JS. This form provides an alternate way to edit the ZMI object: portal_skins/custom/ploneCustom.css.</p>
+                            <p>Here you can add custom JS to override Plone's default JS.</p> 
 
                             <textarea rows="25" name="edit_js" tal:content="python: view.getPloneCustom(here.portal_javascripts)"></textarea>
 
