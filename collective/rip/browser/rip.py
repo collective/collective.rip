@@ -6,12 +6,22 @@ from zope.app.component.hooks import getSite
 
 default_css = """
 /* PUT YOUR CUSTOM STUFF HERE. E.g. */
-/* body{background:black;} */
+body{
+    background:#DDDDDD;
+}
 """
 
 default_js = """
 /* PUT YOUR CUSTOM STUFF HERE. E.g. */
-/* jq(function () { jq("h1").hide("slow"); } ); */
+jq(function(){
+  $("h1").animate({
+    width: "70%",
+    opacity: 0.4,
+    marginLeft: "0.6in",
+    fontSize: "3em",
+    borderWidth: "10px"
+  }, 1500 );
+});
 """
 
 
