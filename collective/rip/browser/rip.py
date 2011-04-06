@@ -103,14 +103,11 @@ class ResourcesInPlone(BrowserView):
 
     def setPloneCustom(self, tool, text):
         """
-        Look for a DTML or ZPT obj to update
+        Look for a ZPT obj to update
         """
         custom_id, obj, register, update, default_text = (
             self.getCustomObjectAndMethods(tool))
-        if hasattr(obj, 'manage_edit'):
-            # DTMLMethod
-            obj.manage_edit(text, 'text/html')
-        elif hasattr(obj, 'pt_edit'):
+        if hasattr(obj, 'pt_edit'):
             # ZopePageTemplate
             obj.pt_edit(text, 'text/html')
         else:
@@ -142,3 +139,4 @@ class ResourcesInPlone(BrowserView):
             self.create_custom(custom_id, default_text)
             document_src = self.portal_skins.custom[custom_id].document_src()
         return document_src
+
