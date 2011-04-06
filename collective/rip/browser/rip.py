@@ -5,14 +5,12 @@ from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from zope.app.component.hooks import getSite
 
 default_css = """
-/* PUT YOUR CUSTOM STUFF HERE. E.g. */
 body{
     background:#DDDDDD;
 }
 """
 
 default_js = """
-/* PUT YOUR CUSTOM STUFF HERE. E.g. */
 jq(function(){
   $("h1").animate({
     width: "70%",
