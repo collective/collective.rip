@@ -49,16 +49,18 @@ class ResourcesInPlone(BrowserView):
         form = self.request.form
 
         # Enable/disable CSS debug
-        if 'css_debug' in form and form['css_debug']:
-            self.portal_css.setDebugMode(True)
-        if not 'css_debug' in form and 'submitted_css' in form:
-            self.portal_css.setDebugMode(False)
+        if 'submitted_css' in form:
+            if 'css_debug' in form:
+                self.portal_css.setDebugMode(True)
+            if not 'css_debug' in form:
+                self.portal_css.setDebugMode(False)
 
         # Enable/disable JS debug
-        if 'js_debug' in form and form['js_debug']:
-            self.portal_js.setDebugMode(True)
-        if not 'css_debug' in form and 'submitted_js' in form:
-            self.portal_js.setDebugMode(False)
+        if 'submitted_js' in form:
+            if 'js_debug' in form:
+                self.portal_js.setDebugMode(True)
+            if not 'js_debug' in form:
+                self.portal_js.setDebugMode(False)
 
         # Edit CSS/JS
         if 'edit_css' in form and 'submitted_css' in form:
