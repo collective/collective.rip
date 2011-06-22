@@ -7,8 +7,7 @@ setup(name='collective.rip',
       version=version,
       description="Edit CSS and JavaScript in Plone control panel",
       long_description=open("README.txt").read() +
-                       open(os.path.join("docs", "HISTORY.txt")).read() +
-                       open(os.path.join("docs", "TODO.txt")).read(),
+                       open(os.path.join("docs", "HISTORY.txt")).read(),
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",

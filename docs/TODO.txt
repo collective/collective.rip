@@ -1,7 +1,0 @@
-
-Todo
-====
-
-- Make it work without portal_skins
-- Make it uninstall properly
-- Add tests

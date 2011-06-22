@@ -14,7 +14,7 @@ Installation
 To install: 
 
 - Add ``collective.rip`` to your buildout ``plone.recipe.zope2instance``
-  section's eggs parameter, e.g.::
+  section's eggs parameter::
 
     [plone]
     recipe = plone.recipe.zope2instance
@@ -23,9 +23,9 @@ To install:
         ...
         collective.rip
 
-- Run buildout and restart Plone.
-- Browse to Site Setup -> Add-ons -> Available add-ons -> [] Resources in Plone
-- Check the box next to ``Resources in Plone`` and click the Activate button.
+- Run ``Buildout`` and restart ``Plone``.
+- Browse to ``Site Setup -> Add-ons -> Available add-ons``.
+- Check ``Resources in Plone`` and click ``Activate``.
 
 Have fun!
 
