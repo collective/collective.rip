@@ -2,11 +2,11 @@
 Introduction
 ============
 
-This is ``collective.rip`` AKA "Resources In Plone".
+Resources in Plone (collective.rip) 
 
-For quick and dirty UI prototyping: install this add-on to edit CSS and 
-Javascript from within Plone (in the Plone control panel). You can also 
-toggle CSS/JS debug modes.
+For quick and dirty UI prototyping, install this add-on to edit CSS and 
+JavaScript from within the Plone control panel. You can also toggle CSS
+and JavaScript debug modes.
 
 Installation
 ------------
@@ -24,9 +24,7 @@ To install:
         collective.rip
 
 - Run buildout and restart Plone.
-
 - Browse to Site Setup -> Add-ons -> Available add-ons -> [] Resources in Plone
-
 - Check the box next to ``Resources in Plone`` and click the Activate button.
 
 Have fun!

@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.1'
 
 setup(name='collective.rip',
       version=version,
-      description="Use a text area in the Plone control panel to edit CSS and Javascript.",
+      description="Edit CSS and JavaScript in Plone control panel",
       long_description=open("README.txt").read() +
                        open(os.path.join("docs", "HISTORY.txt")).read() +
                        open(os.path.join("docs", "TODO.txt")).read(),

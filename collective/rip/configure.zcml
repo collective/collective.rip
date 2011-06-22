@@ -7,7 +7,7 @@
       name="default"
       title="Resources in Plone (collective.rip)"
       directory="profiles/default"
-      description="Edit CSS and JavaScript from Plone Control Panel."
+      description="Edit CSS and JavaScript from Plone control panel."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
