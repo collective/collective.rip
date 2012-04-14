@@ -1,12 +1,9 @@
+*Formerly collective.controlpanel.edit_css*
 
 Introduction
 ============
 
-Resources in Plone (collective.rip) 
-
-For quick and dirty UI prototyping, install this add-on to edit CSS and 
-JavaScript from within the Plone control panel. You can also toggle CSS
-and JavaScript debug modes.
+collective.rip: (**r**)esources (**i**)n (**p**)lone is for quick and dirty UI prototyping. Install this add-on to edit CSS and JavaScript from within the Plone control panel. You may also toggle CSS and JavaScript debug modes.
 
 Installation
 ------------

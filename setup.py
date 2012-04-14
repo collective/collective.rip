@@ -1,31 +1,37 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages
+from setuptools import setup
 import os
 
-version = '1.1'
+VERSION = '1.2.0'
 
-setup(name='collective.rip',
-      version=version,
-      description="Edit CSS and JavaScript in Plone control panel",
-      long_description=open("README.txt").read() +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
-      classifiers=[
-        "Framework :: Plone",
-        "Programming Language :: Python",
-        ],
-      keywords='Developer tools, Theming',
-      author='Alex Clark',
-      author_email='aclark@aclark.net',
-      url='http://svn.plone.org/svn/collective/collective.rip',
-      license='GPL',
-      packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['collective'],
-      include_package_data=True,
-      zip_safe=False,
-      install_requires=[
-          'setuptools',
-      ],
-      entry_points="""
-      [z3c.autoinclude.plugin]
-      target = plone
-      """,
-      )
+
+setup(
+    author='Alex Clark',
+    author_email='aclark@aclark.net',
+    classifiers=[
+        'Framework :: Plone',
+        'Programming Language :: Python',
+    ],
+    description="Edit CSS and JavaScript in Plone control panel",
+    entry_points={
+        'z3c.autoinclude.plugin': 'target = plone',
+    },
+    include_package_data=True,
+    install_requires=[
+        'setuptools',
+    ],
+    keywords='css html javascript plone theme',
+    license='ZPL',
+    long_description=(
+        open("README.txt").read() +
+        open(os.path.join("docs", "HISTORY.txt")).read()
+    ),
+    name='collective.rip',
+    namespace_packages=[
+        'collective'
+    ],
+    packages=find_packages(),
+    url='https://github.com/collective/collective.rip',
+    version=VERSION,
+    zip_safe=False,
+)
