@@ -5,8 +5,14 @@ from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
 from zope.app.component.hooks import getSite
 
 default_css = """
-body{
-    background:#DDDDDD;
+#portal-globalnav {
+  padding: 0 0 0 2em;
+  border-radius: 5px;
+}
+#portal-globalnav li a {
+  margin: 0;
+  padding: 5px;
+  height: 50px;
 }
 """
 
