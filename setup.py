@@ -31,7 +31,7 @@ setup(
         'collective'
     ],
     packages=find_packages(),
-    url='https://github.com/collective/collective.rip',
+    url='http://collective.github.com/collective.rip/',
     version=VERSION,
     zip_safe=False,
 )
