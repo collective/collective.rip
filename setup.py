@@ -23,7 +23,7 @@ setup(
     keywords='css html javascript plone theme',
     license='ZPL',
     long_description=(
-        open("README.txt").read() +
+        open("README.rst").read() +
         open(os.path.join("docs", "HISTORY.txt")).read()
     ),
     name='collective.rip',
