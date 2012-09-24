@@ -2,7 +2,13 @@ from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.PageTemplates.ZopePageTemplate import ZopePageTemplate
-from zope.app.component.hooks import getSite
+try:
+    # >= Plone 4.3
+    from zope.component.hooks import getSite
+except:
+    # < Plone 4.3
+    from zope.app.component.hooks import getSite
+
 
 default_css = """
 #portal-globalnav {
