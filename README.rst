@@ -1,4 +1,5 @@
-*Formerly collective.controlpanel.edit_css*
+*Formerly* `collective.controlpanel.edit_css <https://github.com/collective/collective.controlpanel.edit_css>`_
+
 
 Introduction
 ============
